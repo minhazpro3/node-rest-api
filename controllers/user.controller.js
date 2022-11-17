@@ -115,3 +115,26 @@ module.exports.updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.deleteUser = async (req, res, next) => {
+  try {
+    const db = getDb();
+    const { id } = req.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json("invalid Id");
+    }
+    const objId = { _id: ObjectId(id) };
+    const result = await db.collection("users").deleteOne(objId);
+    if (!result) {
+      return res.json("couldn't find user with this Id!");
+    }
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(400).send("Something Wrong!");
+    }
+  } catch (error) {
+    next(error);
+  }
+};

@@ -18,4 +18,5 @@ router.route("/").post(userController.saveUser);
 router.route("/").get(userController.getUser);
 router.route("/:id").get(userController.getUserWidthId);
 router.route("/:id").put(userController.updateUser);
+router.route("/:id").delete(userController.deleteUser);
 module.exports = router;
